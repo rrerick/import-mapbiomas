@@ -5,6 +5,7 @@ MapBiomas_Down2years.py
     Feito para baixar e poligonizar os ano de 1985 e 2020 
 """
 
+from asyncio import FastChildWatcher
 import errno
 import urllib.request
 import requests
@@ -55,24 +56,27 @@ try:
             #Polygoniz .tif
             FileGpkgName = nome_arquivo.replace('.tif', '')
             print("Working in Polygoniz to GPKG")
-            fileISok=subDir + "ok.txt"
+            fileISok = subDir + "ok.txt"
 
-            if os.path.isfile (fileISok):
-                print("%s '\t' polygonized" %name)
+            if os.path.isfile(fileISok):
+                print("%s |\t| polygonized" % name)
                 year += 1
                 count += 1
             else:
                 os.chdir(subDir)
-                with open('ok.txt', "w") as verification:
-                    print("working...")
-                    Polygonized(file_path, FileGpkgName, subDir)
-                    year += 1
-                    count += 1
-
+                print("working...")
+                Polygonized(file_path, FileGpkgName, subDir)
         else:
             year += 1
             count += 1
             continue
 
 except Exception as err:
-    sys.exit("An Error has occurred\nExiting")
+    print(err, '\n')
+    err = str(err)
+    if 'TIFFReadEncodedTile() failed' in err:
+        print("The .tif file has an error \t It will be delete")
+        os.remove(file_path)
+        sys.exit("TRY AGAIN")
+    else:
+        sys.exit("An Error has occurred\nExiting")
