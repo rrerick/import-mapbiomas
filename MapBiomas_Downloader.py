@@ -20,9 +20,9 @@ import urllib.request
 import requests
 import json
 import os
-from time import sleep
 from functions_MapBiomas_Downloader import CreateDir, Polygonized
-from tqdm import tqdm
+import sys
+
 
 
 # Connec to url
@@ -41,15 +41,11 @@ try:
     count = 1
 
     while year <= 2020:
-        with tqdm(total=100) as progressbar:
             name = output_json['items'][count]['name']
             nome_arquivo = name.replace('/', '_')
             print(nome_arquivo)
 
             subDir = str(path) + '/' + str(year) + '/'
-
-            progressbar.update(10)
-
             try:
                 os.mkdir(subDir)
                 # caminho_arquivo=str(os.getcwd())+'/'+nome_arquivo
@@ -57,31 +53,31 @@ try:
                 if err.errno == errno.EEXIST:
                     print("Sub-Directory Alredy Exists")
 
-            progressbar.update(40)
-
             file_path = subDir + nome_arquivo
             if os.path.isfile(file_path):
                 print("file exists")
-                sleep(3)
-
             else:
-                print("file not exist, downloadig...")
+                print("file not exist, downloading...")
                 mediaLink = output_json['items'][count]['mediaLink']
                 file_path, _ = urllib.request.urlretrieve(mediaLink, file_path)
-                sleep(3)
                 print('OK')
-
-            progressbar.update(30)
 
             #Polygoniz .tif
             FileGpkgName = nome_arquivo.replace('.tif', '')
             print("Working in Polygoniz to GPKG")
-            Polygonized(file_path, FileGpkgName, subDir)
-            progressbar.update(20)
-            sleep(2)
-            year += 1
-            count += 1
+            fileISok=subDir + "ok.txt"
+            if os.path.isfile (fileISok):
+                print("%s |\t| polygonized" %name)
+                year += 1
+                count += 1
+            else:
+                os.chdir(subDir)
+                with open('ok.txt', "w") as verification:
+                    print("working...")
+                    Polygonized(file_path, FileGpkgName, subDir)
+                    year += 1
+                    count += 1
 
 
-except IndexError as error:
-    print('finished')
+except Exception as err:
+    sys.exit("An Error Has Occurred ", err)
