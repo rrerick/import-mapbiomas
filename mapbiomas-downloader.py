@@ -20,9 +20,8 @@ import urllib.request
 import requests
 import json
 import os
-from time import sleep
-from functions_MapBiomas_Downloader import CreateDir, Polygonized
-from tqdm import tqdm
+import sys
+from functionsmapbiomas import CreateDir, Polygonized
 
 
 # Connec to url
@@ -41,48 +40,48 @@ try:
     count = 1
 
     while year <= 2020:
-        with tqdm(total=100) as progressbar:
-            name = output_json['items'][count]['name']
-            nome_arquivo = name.replace('/', '_')
-            print(nome_arquivo)
 
-            subDir = str(path) + '/' + str(year) + '/'
+        name = output_json['items'][count]['name']
+        nome_arquivo = name.replace('/', '_')
+        print(nome_arquivo)
+        subDir = str(path) + '/' + str(year) + '/'
+        try:
+            os.mkdir(subDir)
+            # caminho_arquivo=str(os.getcwd())+'/'+nome_arquivo
+        except OSError as err:
+            if err.errno == errno.EEXIST:
+                print("Sub-Directory Alredy Exists")
+        file_path = subDir + nome_arquivo
+        if os.path.isfile(file_path):
+            print("file exists")
+        else:
+            print("file not exist, downloading...")
+            mediaLink = output_json['items'][count]['mediaLink']
+            file_path, _ = urllib.request.urlretrieve(mediaLink, file_path)
+            print('OK')
+        #Polygoniz .tif
+        FileGpkgName = nome_arquivo.replace('.tif', '')
+        print("Working in Polygoniz to GPKG")
+        fileISok = subDir + "ok.txt"
 
-            progressbar.update(10)
-            sleep(0.5)
-
-            try:
-                os.mkdir(subDir)
-                # caminho_arquivo=str(os.getcwd())+'/'+nome_arquivo
-            except OSError as err:
-                if err.errno == errno.EEXIST:
-                    print("Sub-Directory Alredy Exists")
-
-            progressbar.update(40)
-            sleep(0.5)
-            file_path = subDir + nome_arquivo
-            if os.path.isfile(file_path):
-                print("file exists")
-                sleep(3)
-
-            else:
-                print("file not exist, downloading...")
-                mediaLink = output_json['items'][count]['mediaLink']
-                file_path, _ = urllib.request.urlretrieve(mediaLink, file_path)
-                sleep(3)
-                print('OK')
-
-            #Polygoniz .tif
-            FileGpkgName = nome_arquivo.replace('.tif', '')
-            print("Working in Polygoniz to GPKG")
-            progressbar.update(30)
-            sleep(0.5)
+        if os.path.isfile(fileISok):
+            print("%s |\t| polygonized" % name)
+            year += 1
+            count += 1
+        else:
+            os.chdir(subDir)
+            print("working...")
             Polygonized(file_path, FileGpkgName, subDir)
-            progressbar.update(20)
-            sleep(2)
             year += 1
             count += 1
 
+except Exception as err:
+    print(err, '\n')
+    err = str(err)
+    if 'TIFFReadEncodedTile() failed' in err:
+        print("The .tif file has an error \t It will be delete")
+        os.remove(file_path)
+        sys.exit("TRY AGAIN")
+    else:
+        sys.exit("An Error has occurred\nExiting")
 
-except IndexError as error:
-    print('finished')
