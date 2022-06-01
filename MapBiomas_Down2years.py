@@ -1,20 +1,10 @@
 """
+MapBiomas_Down2years.py
 
 
-1º) Descarregar as coberturas completas do Brasil de 2019 até 2020
-
-Links de exemplo:
-a) https://storage.googleapis.com/mapbiomas-public/brasil/collection-6/lclu/coverage/brasil_coverage_1985.tif
-b) https://storage.googleapis.com/storage/v1/b/mapbiomas-public/o/?delimiter=/&prefix=brasil/collection-6/lclu/coverage/
-
-
-VERSÃO :
-
-    1 - Pegar o arquivo JSON (b) e conferir dos anos 2019 - 2020
-
-
-
+    Feito para baixar e poligonizar os ano de 1985 e 2020 
 """
+
 import errno
 import urllib.request
 import requests
@@ -22,8 +12,6 @@ import json
 import os
 from functions_MapBiomas_Downloader import CreateDir, Polygonized
 import sys
-
-
 
 # Connec to url
 url = requests.get(
@@ -41,11 +29,13 @@ try:
     count = 1
 
     while year <= 2020:
-            name = output_json['items'][count]['name']
+        name = output_json['items'][count]['name']
+
+        if '2020' in name or '1985' in name:
             nome_arquivo = name.replace('/', '_')
             print(nome_arquivo)
-
             subDir = str(path) + '/' + str(year) + '/'
+
             try:
                 os.mkdir(subDir)
                 # caminho_arquivo=str(os.getcwd())+'/'+nome_arquivo
@@ -66,8 +56,9 @@ try:
             FileGpkgName = nome_arquivo.replace('.tif', '')
             print("Working in Polygoniz to GPKG")
             fileISok=subDir + "ok.txt"
+
             if os.path.isfile (fileISok):
-                print("%s |\t| polygonized" %name)
+                print("%s '\t' polygonized" %name)
                 year += 1
                 count += 1
             else:
@@ -78,6 +69,10 @@ try:
                     year += 1
                     count += 1
 
+        else:
+            year += 1
+            count += 1
+            continue
 
 except Exception as err:
-    sys.exit("An Error Has Occurred ", err)
+    sys.exit("An Error has occurred\nExiting")
