@@ -10,7 +10,7 @@ import urllib.request
 import requests
 import json
 import os
-from functions_MapBiomas_Downloader import CreateDir, Polygonized
+from functionsmapbiomas import CreateDir, Polygonized
 import sys
 
 # Connec to url
