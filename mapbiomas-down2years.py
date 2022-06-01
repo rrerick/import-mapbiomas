@@ -5,7 +5,6 @@ MapBiomas_Down2years.py
     Feito para baixar e poligonizar os ano de 1985 e 2020 
 """
 
-from asyncio import FastChildWatcher
 import errno
 import urllib.request
 import requests
