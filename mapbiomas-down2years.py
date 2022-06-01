@@ -65,6 +65,8 @@ try:
                 os.chdir(subDir)
                 print("working...")
                 Polygonized(file_path, FileGpkgName, subDir)
+                year += 1
+                count += 1
         else:
             year += 1
             count += 1
