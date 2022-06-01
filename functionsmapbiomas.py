@@ -12,7 +12,7 @@ import sys
 
 def CreateDir():
     try:
-        mylocal = str(os.path.expanduser('~')) + '/Área de Trabalho/'
+        mylocal = str(os.path.expanduser('~'))
         directory = "MapBiomas"
         path = os.path.join(mylocal, directory)
         os.mkdir(path)
