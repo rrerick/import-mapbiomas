@@ -6,7 +6,7 @@ Funçẽs usadas no programa MapBiomas_Downloader
 """
 import errno
 import os
-from osgeo import gdal, ogr,osr
+from osgeo import gdal, ogr, osr
 import sys
 
 
@@ -23,10 +23,10 @@ def CreateDir():
     return path
 
 
-def Polygonized (path, name_file,directory):
+def Polygonized(path, name_file, directory):
     """
     Poligonizar shapefiles
-    
+
     args:
         path - path of archive .tif
         name_file - layername of polygonized object 
@@ -46,13 +46,10 @@ def Polygonized (path, name_file,directory):
     tifFile = gdal.Open(tif)
     print(tifFile.GetMetadata())
 
-
-
     # get raster band
     try:
         band_num = 1
         srcband = tifFile.GetRasterBand(band_num)
-
 
     except RuntimeError as err:
         print("Band ( %i ) not found " % band_num)
@@ -63,7 +60,7 @@ def Polygonized (path, name_file,directory):
     # Create Output DataSource
     #
 
-    spatial_ref=osr.SpatialReference()
+    spatial_ref = osr.SpatialReference()
     spatial_ref.SetFromUserInput('EPSG:4326')
 
     os.chdir(directory)
@@ -71,12 +68,12 @@ def Polygonized (path, name_file,directory):
     tif_Layername = name_file
     DriveSearch = ogr.GetDriverByName('GPKG')
     NewNameFile = DriveSearch.CreateDataSource(tif_Layername + '.gpkg')
-    tif_layer = NewNameFile.CreateLayer(tif_Layername, srs=None )
+    tif_layer = NewNameFile.CreateLayer(tif_Layername, srs=None)
     field = ogr.FieldDefn('class', ogr.OFTInteger)
     tif_layer.CreateField(field)
-    tif_field=tif_layer.GetLayerDefn().GetFieldIndex("class")
+    tif_field = tif_layer.GetLayerDefn().GetFieldIndex("class")
 
-    gdal.Polygonize(srcband, None, tif_layer, tif_field , [], callback=None)
+    gdal.Polygonize(srcband, None, tif_layer, tif_field, [], callback=None)
 
     #close .tif
     tifFile = None
