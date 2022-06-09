@@ -43,6 +43,7 @@ def main():
         count = 1
 
         while year <= 2020:
+            name = output_json['items'][count]['name']
             if '2020' in name or '1985' in name:
                 name = output_json['items'][count]['name']
                 nome_arquivo = name.replace('/', '_')
