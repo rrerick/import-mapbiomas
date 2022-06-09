@@ -8,6 +8,7 @@ import errno
 import os
 from osgeo import gdal, ogr, osr
 import sys
+import multiprocessing as mp
 
 
 def CreateDir():
@@ -72,6 +73,7 @@ def Polygonized(path, name_file, directory):
     field = ogr.FieldDefn('class', ogr.OFTInteger)
     tif_layer.CreateField(field)
     tif_field = tif_layer.GetLayerDefn().GetFieldIndex("class")
+
 
     gdal.Polygonize(srcband, None, tif_layer, tif_field, [], callback=None)
 
