@@ -14,7 +14,7 @@ import multiprocessing as mp
 def CreateDir():
     try:
         mylocal = str(os.path.expanduser('~'))
-        directory = "MapBiomas"
+        directory = "MapBiomas_multiprocessing"
         path = os.path.join(mylocal, directory)
         os.mkdir(path)
     except OSError as err:
@@ -74,8 +74,7 @@ def Polygonized(path, name_file, directory):
     tif_layer.CreateField(field)
     tif_field = tif_layer.GetLayerDefn().GetFieldIndex("class")
 
-
-    gdal.Polygonize(srcband, None, tif_layer, tif_field, [], callback=None)
+    (gdal.Polygonize(srcband, None, tif_layer, tif_field, [], callback=None))
 
     #close .tif
     tifFile = None
