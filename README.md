@@ -22,13 +22,13 @@ After clone repo you need to create in the same directory <b>years.txt</b> file.
 
 The program will tell you everything that's happening 😄
 
-<h4> 💢 Exceptions 💢 </h4>
+ # 💢 Exceptions 💢 
 
-# something stop the download of images:
+<b> something stop the download of images:</b>
   When you stop or the download can not finish, the error going to show up in your screen. 
       👍 DONT WORRY, the program will remove and downloading the image again 👍
       
-<h4> Considerations </h4>
+# Considerations
   🏗️ Projeto em construção 👷‍♂️
   
   This project supports maps between 1985 to 2020, until 06/23/2022 this was the last update in Map Biomas Website. 
