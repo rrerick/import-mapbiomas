@@ -6,8 +6,9 @@ Personal Project to get all datas at mapbiomas
 After clone repo you need to create in the same directory <b>years.txt</b> file.
   In this file you will especified the years of the map, each year in a line.
   
-![Captura de tela de 2022-06-23 15-25-30](https://user-images.githubusercontent.com/78693116/175368737-73271db0-ab0f-4987-ab25-557da10b73bb.png)
-  
+
+  ![Captura de tela de 2022-06-23 16-09-20](https://user-images.githubusercontent.com/78693116/175378598-ee7eb237-eaf2-4b8f-b51a-4f8ab3388fa0.png)
+
   like this. 
   
   
