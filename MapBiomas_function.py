@@ -8,7 +8,7 @@ import errno
 import os
 from osgeo import gdal, ogr, osr
 import sys
-import multiprocessing as mp
+import urllib
 
 
 def CreateDir():
@@ -74,8 +74,24 @@ def Polygonized(path, name_file, directory):
     tif_layer.CreateField(field)
     tif_field = tif_layer.GetLayerDefn().GetFieldIndex("class")
 
-
     gdal.Polygonize(srcband, None, tif_layer, tif_field, [], callback=None)
 
     #close .tif
     tifFile = None
+
+def YearsInMapBiomas(year):
+    year=int(year)
+    number=[x for x in range(1,37)]
+    list_years=[x for x in range(1985,2020+1)]
+    dictofdates={}
+    for y in range(len(number)):
+        dictofdates[list_years[y]]=number[y]
+
+    if year in dictofdates:
+        return dictofdates[year]
+    else:
+        return 'not'
+
+def download(output_json, correct_year,file_path):
+    mediaLink = output_json['items'][correct_year]['mediaLink']
+    file_path, _ = urllib.request.urlretrieve(mediaLink, file_path)
