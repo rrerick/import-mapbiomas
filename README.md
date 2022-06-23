@@ -1,5 +1,11 @@
 # import-mapbiomas
-Personal Project to get all datas at mapbiomas 
+Personal Project to get all specified datas in Map Biomas Website. 
+
+# INFO
+
+This program can download specified data in Map Biomas website project, in TIF file format. After that will polygoniz the Tif file
+SRC: EPSG:4674
+UTF-8
 
 <h3> 🔨 Run Projetct </h3>
 
