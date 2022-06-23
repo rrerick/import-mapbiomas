@@ -29,6 +29,6 @@ The program will tell you everything that's happening 😄
       👍 DONT WORRY, the program will remove and downloading the image again 👍
       
 # Considerations
-  🏗️ Projeto em construção 👷‍♂️
+  🏗️ UNDER CONSTRUCTION 👷‍♂️
   
   This project supports maps between 1985 to 2020, until 06/23/2022 this was the last update in Map Biomas Website. 
