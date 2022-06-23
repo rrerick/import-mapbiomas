@@ -18,6 +18,6 @@ Ok, let's go its time to trutly run the project
 ▶️ In terminal(or in another plataform that you preffer) go to directory that you import this project, and run MapBiomas.py file.
 
 
-![Captura de tela de 2022-06-23 15-36-34](https://user-images.githubusercontent.com/78693116/175371805-7bbdc4d9-f7c7-4671-9d02-b3f22381a8ad.png)
+![Captura de tela de 2022-06-23 15-38-18](https://user-images.githubusercontent.com/78693116/175372476-9ceda5ee-e2a1-453d-a0e4-f8398ef927ae.png)
 
-By that way
+By this way 😙
