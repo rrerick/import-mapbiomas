@@ -15,16 +15,18 @@ After clone repo you need to create in the same directory <b>years.txt</b> file.
 
   ![Captura de tela de 2022-06-23 16-09-20](https://user-images.githubusercontent.com/78693116/175378598-ee7eb237-eaf2-4b8f-b51a-4f8ab3388fa0.png)
 
-  like this. 
-  
-  
-# 🚫 If you don't create this file the project will raise an error. 🚫
 
-<p>Ok, let's go its time to trutly run the project</p>
+  
+  
+# 🚫 If you don't create this fil, the project will raise an error. 🚫
+
+<p>Ok, let's go, its time to trutly run the project</p>
 
 ▶️ In terminal(or in another plataform that you preffer) go to directory that you import this project, and run MapBiomas.py file.
 
-`python3 MapBiomas.py`
+```sh
+python3 MapBiomas.py
+
 
 The program will tell you everything that's happening 😄
 
