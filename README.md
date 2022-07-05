@@ -26,7 +26,7 @@ After clone repo you need to create in the same directory <b>years.txt</b> file.
 
 ```sh
 python3 MapBiomas.py
-
+```
 
 The program will tell you everything that's happening 😄
 
